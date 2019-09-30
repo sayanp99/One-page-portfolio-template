@@ -108,8 +108,15 @@ $(document).ready(function() { "use strict";
     }
   }
 
-  //Remove animation for Simplified Mobile Option
- 
+  if (window.isSimplifiedMobile && window.isMobile) {
+    window.isAnimated = false;
+    $body.removeClass('animated animateOnEvent');
+    $("[class*='ae-']").addClass('done');
+  }
+
+  if (!window.isAnimated) {
+    window.cleanupDelay = 0;
+  }
 
   //Is scroll hijacked?
   if ($body.hasClass('smoothScroll') && !window.isMobile){
