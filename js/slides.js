@@ -98,7 +98,25 @@ $(document).ready(function() { "use strict";
   }
 
   //Is it animated?
+  if ($body.hasClass('animated')){
+    window.isAnimated = "auto";
+  } else if ($body.hasClass('animateOnEvent')) {
+    window.isAnimated = "animateOnEvent";
+    if (window.isMobile) {
+      window.isAnimated = "auto";
+      $body.removeClass('animateOnEvent').addClass('animated');
+    }
+  }
 
+  if (window.isSimplifiedMobile && window.isMobile) {
+    window.isAnimated = false;
+    $body.removeClass('animated animateOnEvent');
+    $("[class*='ae-']").addClass('done');
+  }
+
+  if (!window.isAnimated) {
+    window.cleanupDelay = 0;
+  }
 
   //Is scroll hijacked?
   if ($body.hasClass('smoothScroll') && !window.isMobile){
